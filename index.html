@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEEL MADHAV - Direct Style Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f9ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #002855;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #003f88;
+      font-weight: bold;
+    }
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .btn {
+      width: 100%;
+      background-color: #005f73;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .btn:hover {
+      background-color: #0a9396;
+    }
+    .result, .displayArea {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #0077b6;
+      text-align: left;
+    }
+    .displayArea {
+      width: 400px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>NEEL MADHAV</h1>
+    <form id="orderForm">
+      <label>Select Date</label>
+      <input type="date" id="orderDate">
+
+      <label>Enter Quantity for Style A (₹55 each)</label>
+      <input type="number" id="qtyA" min="0" value="0">
+
+      <label>Enter Quantity for Style B (₹70 each)</label>
+      <input type="number" id="qtyB" min="0" value="0">
+
+      <label>Enter Quantity for Style C (₹85 each)</label>
+      <input type="number" id="qtyC" min="0" value="0">
+
+      <div class="btn-group">
+        <button type="button" class="btn" onclick="saveData()">Save</button>
+        <button type="button" class="btn" onclick="displayData()">Display</button>
+        <button type="button" class="btn" onclick="resetData()">Reset</button>
+      </div>
+
+      <div class="result" id="result"></div>
+    </form>
+  </div>
+
+  <div class="displayArea" id="displayArea"></div>
+
+  <script>
+    function calculateTotals(qtyA, qtyB, qtyC) {
+      return {
+        totalA: qtyA * 55,
+        totalB: qtyB * 70,
+        totalC: qtyC * 85,
+        grandTotal: (qtyA * 55) + (qtyB * 70) + (qtyC * 85)
+      };
+    }
+
+    function saveData() {
+      const date = document.getElementById("orderDate").value;
+      const qtyA = parseInt(document.getElementById("qtyA").value) || 0;
+      const qtyB = parseInt(document.getElementById("qtyB").value) || 0;
+      const qtyC = parseInt(document.getElementById("qtyC").value) || 0;
+
+      if (!date) {
+        alert("Please select a date.");
+        return;
+      }
+
+      const entry = { date, qtyA, qtyB, qtyC };
+      const data = JSON.parse(localStorage.getItem("orders") || "[]");
+      data.push(entry);
+      localStorage.setItem("orders", JSON.stringify(data));
+
+      document.getElementById("result").innerText = "Data saved successfully!";
+    }
+
+    function displayData() {
+      const displayArea = document.getElementById("displayArea");
+      const data = JSON.parse(localStorage.getItem("orders") || "[]");
+
+      if (data.length === 0) {
+        displayArea.innerHTML = "<p>No data available.</p>";
+        return;
+      }
+
+      let html = "<h3>Saved Orders:</h3>";
+      data.forEach((entry, index) => {
+        const totals = calculateTotals(entry.qtyA, entry.qtyB, entry.qtyC);
+        html += `
+          <div style="margin-bottom: 15px;">
+            <strong>Order ${index + 1} - Date: ${entry.date}</strong><br>
+            Style A: ${entry.qtyA} x ₹55 = ₹${totals.totalA}<br>
+            Style B: ${entry.qtyB} x ₹70 = ₹${totals.totalB}<br>
+            Style C: ${entry.qtyC} x ₹85 = ₹${totals.totalC}<br>
+            <strong>Total: ₹${totals.grandTotal}</strong>
+          </div>
+        `;
+      });
+
+      displayArea.innerHTML = html;
+    }
+
+    function resetData() {
+      localStorage.removeItem("orders");
+      document.getElementById("orderForm").reset();
+      document.getElementById("displayArea").innerHTML = "";
+      document.getElementById("result").innerText = "All data has been reset.";
+    }
+  </script>
+
+</body>
+</html>
