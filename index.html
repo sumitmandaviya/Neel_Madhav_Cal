@@ -1,187 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEEL MADHAV - Direct Style Input</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE MARUTI ENTERPRISE</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f9ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
+      padding: 0;
+      background: #f9f9f9;
     }
-
     .container {
+      max-width: 900px;
+      margin: 30px auto;
       background: #ffffff;
-      padding: 30px;
+      padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
-      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    h1 {
-      text-align: center;
-      color: #002855;
+    h2, h3 {
+      color: #2c3e50;
     }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      color: #003f88;
-      font-weight: bold;
-    }
-
-    input[type="number"],
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
+    .row {
       margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-      box-sizing: border-box;
     }
-
-    .btn {
-      width: 100%;
-      background-color: #005f73;
-      color: white;
+    input, select {
       padding: 10px;
-      border: none;
       border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    .flex-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    @media(min-width: 600px) {
+      .flex-group {
+        flex-direction: row;
+      }
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
       cursor: pointer;
-      font-size: 16px;
+      margin-right: 10px;
       margin-bottom: 10px;
     }
-
-    .btn:hover {
-      background-color: #0a9396;
+    button:hover {
+      background-color: #2980b9;
     }
-
-    .result, .displayArea {
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: 20px;
-      font-size: 16px;
-      color: #0077b6;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
       text-align: left;
     }
-
-    .displayArea {
-      width: 100%;
-      max-width: 400px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      box-sizing: border-box;
+    th {
+      background-color: #3498db;
+      color: white;
     }
-
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    #finalAmount {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>NEEL MADHAV</h1>
-    <form id="orderForm">
-      <label>Select Date</label>
-      <input type="date" id="orderDate">
+    <h2>THE MARUTI ENTERPRISE</h2>
 
-      <label>Enter Quantity for Style A (₹55 each)</label>
-      <input type="number" id="qtyA" min="0" value="0">
+    <div class="row">
+      <label for="date">Date:</label>
+      <input type="date" id="date" />
+    </div>
 
-      <label>Enter Quantity for Style B (₹70 each)</label>
-      <input type="number" id="qtyB" min="0" value="0">
+    <div class="row">
+      <label for="wallet">Wallet Balance:</label>
+      <input type="number" id="wallet" placeholder="Enter Wallet Balance" />
+    </div>
 
-      <label>Enter Quantity for Style C (₹85 each)</label>
-      <input type="number" id="qtyC" min="0" value="0">
+    <h3>DEBIT BALANCE</h3>
 
-      <div class="btn-group">
-        <button type="button" class="btn" onclick="saveData()">Save</button>
-        <button type="button" class="btn" onclick="displayData()">Display</button>
-        <button type="button" class="btn" onclick="resetData()">Reset</button>
+    <div class="flex-group">
+      <div class="row">
+        <label for="shopSearch">Shop Name:</label>
+        <input type="text" id="shopSearch" oninput="searchShops()" placeholder="Search Shop..." />
+        <select id="shopSelect">
+          <option>Innovegic Mart</option><option>Valamji</option><option>Elite Trade</option><option>Ash Zone</option>
+          <option>Online Mart</option><option>Holiday</option><option>Cheaperzone</option><option>Maharaj</option>
+          <option>Shoppozone</option><option>Shukan</option><option>Qualityzone</option><option>Heer</option>
+          <option>7 horse</option><option>Tradecart</option><option>All Happy</option><option>Primelife</option>
+          <option>Riventa</option><option>Dynamic</option><option>Samarpit</option>
+        </select>
       </div>
 
-      <div class="result" id="result"></div>
-    </form>
+      <div class="row">
+        <label for="price">Amount:</label>
+        <input type="number" id="price" placeholder="Enter Price" />
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button onclick="addItem()" style="margin-bottom: 10px;">Add Item</button>
+      <button onclick="displayData()" style="margin-bottom: 10px;">Display</button>
+      <button onclick="downloadPDF()" style="margin-bottom: 10px;">Download PDF</button>
+    </div>
+
+    <div id="output"></div>
+    <div id="finalAmount"></div>
   </div>
 
-  <div class="displayArea" id="displayArea"></div>
-
   <script>
-    function calculateTotals(qtyA, qtyB, qtyC) {
-      return {
-        totalA: qtyA * 55,
-        totalB: qtyB * 70,
-        totalC: qtyC * 85,
-        grandTotal: (qtyA * 55) + (qtyB * 70) + (qtyC * 85)
-      };
+    const items = [];
+    const originalOptions = Array.from(document.querySelectorAll("#shopSelect option")).map(o => o.text);
+
+    function searchShops() {
+      const input = document.getElementById("shopSearch").value.toLowerCase();
+      const select = document.getElementById("shopSelect");
+      select.innerHTML = "";
+      originalOptions.forEach(opt => {
+        if (opt.toLowerCase().includes(input)) {
+          const option = document.createElement("option");
+          option.textContent = opt;
+          select.appendChild(option);
+        }
+      });
     }
 
-    function saveData() {
-      const date = document.getElementById("orderDate").value;
-      const qtyA = parseInt(document.getElementById("qtyA").value) || 0;
-      const qtyB = parseInt(document.getElementById("qtyB").value) || 0;
-      const qtyC = parseInt(document.getElementById("qtyC").value) || 0;
-
-      if (!date) {
-        alert("Please select a date.");
-        return;
+    function addItem() {
+      const shop = document.getElementById("shopSelect").value;
+      const price = parseFloat(document.getElementById("price").value);
+      if (shop && !isNaN(price)) {
+        items.push({ shop, price });
+        document.getElementById("price").value = "";
       }
-
-      const entry = { date, qtyA, qtyB, qtyC };
-      const data = JSON.parse(localStorage.getItem("orders") || "[]");
-      data.push(entry);
-      localStorage.setItem("orders", JSON.stringify(data));
-
-      document.getElementById("result").innerText = "Data saved successfully!";
     }
 
     function displayData() {
-      const displayArea = document.getElementById("displayArea");
-      const data = JSON.parse(localStorage.getItem("orders") || "[]");
-
-      if (data.length === 0) {
-        displayArea.innerHTML = "<p>No data available.</p>";
-        return;
-      }
-
-      let html = "<h3>Saved Orders:</h3>";
-      data.forEach((entry, index) => {
-        const totals = calculateTotals(entry.qtyA, entry.qtyB, entry.qtyC);
-        html += `
-          <div style="margin-bottom: 15px;">
-            <strong>Order ${index + 1} - Date: ${entry.date}</strong><br>
-            Style A: ${entry.qtyA} x ₹55 = ₹${totals.totalA}<br>
-            Style B: ${entry.qtyB} x ₹70 = ₹${totals.totalB}<br>
-            Style C: ${entry.qtyC} x ₹85 = ₹${totals.totalC}<br>
-            <strong>Total: ₹${totals.grandTotal}</strong>
-          </div>
-        `;
+      const wallet = parseFloat(document.getElementById("wallet").value) || 0;
+      let totalDebit = 0;
+      let html = '<table><tr><th>Shop Name</th><th>Price</th></tr>';
+      items.forEach(item => {
+        html += `<tr><td>${item.shop}</td><td>₹${item.price.toFixed(2)}</td></tr>`;
+        totalDebit += item.price;
       });
-
-      displayArea.innerHTML = html;
+      html += '</table>';
+      document.getElementById("output").innerHTML = html;
+      const finalAmount = wallet - totalDebit;
+      document.getElementById("finalAmount").innerText = `Final Amount: ₹${finalAmount.toFixed(2)}`;
     }
 
-    function resetData() {
-      localStorage.removeItem("orders");
-      document.getElementById("orderForm").reset();
-      document.getElementById("displayArea").innerHTML = "";
-      document.getElementById("result").innerText = "All data has been reset.";
+    function downloadPDF() {
+      let printWindow = window.open('', '', 'height=800,width=600');
+      printWindow.document.write('<html><head><title>MARUTI ENTERPRISE REPORT</title></head><body>');
+      printWindow.document.write(`<h2>Date: ${document.getElementById("date").value}</h2>`);
+      printWindow.document.write(`<h3>Wallet Balance: ₹${document.getElementById("wallet").value}</h3>`);
+      let totalDebit = 0;
+      printWindow.document.write('<table border="1"><tr><th>Shop Name</th><th>Price</th></tr>');
+      items.forEach(item => {
+        printWindow.document.write(`<tr><td>${item.shop}</td><td>₹${item.price.toFixed(2)}</td></tr>`);
+        totalDebit += item.price;
+      });
+      printWindow.document.write('</table>');
+      printWindow.document.write(`<h3>Total Debit: ₹${totalDebit.toFixed(2)}</h3>`);
+      const finalAmount = parseFloat(document.getElementById("wallet").value) - totalDebit;
+      printWindow.document.write(`<h2>Final Amount: ₹${finalAmount.toFixed(2)}</h2>`);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
     }
   </script>
-
 </body>
 </html>
